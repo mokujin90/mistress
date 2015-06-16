@@ -1,0 +1,50 @@
+@import "compass";
+$width: 1200px; //ширина рабочей области
+$headerHeight:250px;
+$footerHeight:40px; //высота футера
+
+$linkColor:black;
+
+/*________________ sticky footer __________*/
+html, body {
+  height: 100%;
+  position: relative;
+}
+body {min-height: 100%;}
+
+header{
+  height: $headerHeight;
+  background: black;
+}
+//основной блок с информацией
+#wrap{
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto ($footerHeight+16)*-1;
+  background: none;
+}
+
+footer {
+  color: white;
+  position: absolute;
+  bottom: 0;
+  bottom: auto;
+  background: black;
+  width: 100%;
+  height: $footerHeight;
+}
+
+/*________________ классы-хелперы _________*/
+
+
+.dot{
+  border-bottom: 1px dotted $linkColor;
+  &:hover{border-bottom: none;text-decoration: none;}
+}
+
+a{
+  text-decoration: none;
+  color:$linkColor;
+  &:hover{text-decoration: underline;}
+}
