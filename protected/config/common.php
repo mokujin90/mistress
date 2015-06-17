@@ -27,7 +27,6 @@ return array(
     // application components
     'components' => array(
         'db' => $db_connection_array,
-        /*
         'image' => array_merge(array(
             'class' => 'application.extensions.image.CImageComponent',
             // GD or ImageMagick
@@ -36,7 +35,7 @@ return array(
 
         'mailer' => array(
             'class' => 'application.extensions.mailer.EMailer',
-        ),*/
+        ),
 
         'urlManager' => array(
             'showScriptName' => false,

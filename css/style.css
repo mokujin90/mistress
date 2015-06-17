@@ -37,7 +37,7 @@ footer {
   height: 40px;
 }
 
-/*________________ классы-хелперы _________*/
+/*________________ ╨║╨╗╨░╤Б╤Б╤Л-╤Е╨╡╨╗╨┐╨╡╤А╤Л _________*/
 /* line 41, ../sass/_components.scss */
 .dot {
   border-bottom: 1px dotted black;
@@ -56,4 +56,48 @@ a {
 /* line 49, ../sass/_components.scss */
 a:hover {
   text-decoration: underline;
+}
+
+/* line 51, ../sass/_components.scss */
+.navbar {
+  border-radius: 0;
+  background: black;
+  background: black;
+}
+
+/* line 56, ../sass/_components.scss */
+#login-dp {
+  min-width: 250px;
+  padding: 14px 14px 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+/* line 61, ../sass/_components.scss */
+#login-dp .help-block {
+  font-size: 12px;
+}
+/* line 64, ../sass/_components.scss */
+#login-dp .bottom {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid #ddd;
+  clear: both;
+  padding: 14px;
+}
+/* line 70, ../sass/_components.scss */
+#login-dp .form-group {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  /* line 76, ../sass/_components.scss */
+  #login-dp {
+    background-color: inherit;
+    color: #fff;
+  }
+
+  /* line 80, ../sass/_components.scss */
+  #login-dp .bottom {
+    background-color: inherit;
+    border-top: 0 none;
+  }
 }

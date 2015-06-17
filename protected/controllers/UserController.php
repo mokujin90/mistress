@@ -1,4 +1,5 @@
 <?php
+
 class UserController extends BaseController
 {
     public $defaultAction = 'login';
@@ -14,7 +15,7 @@ class UserController extends BaseController
     {
         return array(
             array('deny',
-                'actions' => array('login','register'),
+                'actions' => array('login', 'register'),
                 'users' => array('@'),
             ),
         );
@@ -42,19 +43,39 @@ class UserController extends BaseController
         $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function getBreadcrumbs()
+    public function actionRegister()
     {
-        static $count = 0;
-        if ($count++ > 0) {
-            return parent::getBreadcrumbs();
+        $model = new User('signup');
+        if (Yii::app()->request->isPostRequest) {
+            $model->attributes = $_REQUEST[CHtml::modelName($model)];
+            $model->level_id = User::DEF_LEVEL;
+            if ($model->save()) {
+                //Mail::send($model->email, Yii::t('main', 'Подтверждение регистрации'), 'register', array('model' => $model));
+                $this->redirect($this->createUrl('site/index'));
+            }
         }
+        $this->render('register', array('model' => $model));
+    }
 
-        switch ($this->action->id) {
-            case 'login':
-                $this->addBreadcrumb(array('name' => 'Вход'));
-                break;
+
+    /**
+     * Подтверждение от пользователя в регистрации
+     * @param $id
+     * @param $hash
+     */
+    public function actionConfirm($id, $hash)
+    {
+        /*$model = User::model()->findByPk($id);
+        if (!$model || $model->is_active) {
+            throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
-
-        return parent::getBreadcrumbs();
+        if ($model->hash() != $hash) {
+            throw new CHttpException(403, Yii::t('main', 'Нет пути'));
+        }
+        $model->is_active = 1;
+        if ($model->save()) {
+            $model->autologin();
+        }
+        $this->redirect($this->createUrl('user/profile'));*/
     }
 }
