@@ -12,6 +12,13 @@ class Candy
         return date($format);
     }
 
+    public static function dump($var, $die = false)
+    {
+        CVarDumper::dump($var, 10, true);
+        if ($die)
+            die;
+    }
+
     /**
      * Эмуляция $form->error, по той причине, что yii'шная валидация либо соглашается на два ajax-запроса, либо на отсутствие error-полей
      * @param $model
@@ -149,5 +156,10 @@ class Candy
             $name = $matches[1];
         }
         return $name;
+    }
+
+    public static function hash($string){
+        $salt = "*^";
+        return md5(($string) . $salt);
     }
 }

@@ -15,7 +15,7 @@ class UserIdentity extends CUserIdentity
         $user = User::model()->find('LOWER(login)=?', array($username));
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        else if ($this->password !== $user->password)
+        else if (Candy::hash($this->password) !== $user->password_hash)
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else {
             $this->_id = $user->id;

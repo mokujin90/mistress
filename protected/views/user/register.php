@@ -27,7 +27,7 @@
 
                     <div class="form-group col-lg-6">
                         <?php echo $form->labelEx($model,'password_repeat'); ?>
-                        <?php echo $form->textField($model,'password_repeat',array('class'=>'form-control')); ?>
+                        <?php echo $form->passwordField($model,'password_repeat',array('class'=>'form-control')); ?>
                         <?php echo $form->error($model,'password_repeat'); ?>
                     </div>
 

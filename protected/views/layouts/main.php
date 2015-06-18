@@ -4,15 +4,19 @@
     Yii::app()->clientScript->registerCssFile('/css/bootstrap-theme.min.css');
     Yii::app()->clientScript->registerCssFile('/css/normalize.css');
     Yii::app()->clientScript->registerCssFile('/css/style.css');
+    Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
 
 
     #JS
     Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
     Yii::app()->clientScript->registerCoreScript('jquery');
     Yii::app()->clientScript->registerScriptFile('/js/bootstrap.min.js', CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
-    Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
-    Yii::app()->clientScript->registerScriptFile('/js/main.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+    Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
+    Yii::app()->clientScript->registerScriptFile('/js/controllers.js', CClientScript::POS_END); //js-файл с основными компонентами-синглтонами
+    Yii::app()->clientScript->registerScript('route', "route.initJs('".Yii::app()->controller->id."Controller','".$this->getActionName()."')", CClientScript::POS_END);
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -52,59 +56,24 @@
                         <li><a href="#">О проекте</a></li>
                         <li><a href="#">Обратная связь</a></li>
                     </ul>
+                    <?if(Yii::app()->user->isGuest):?>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Войти</b> <span class="caret"></span></a>
+                                <ul id="login-dp" class="dropdown-menu">
+                                    <li>
+                                        <?$this->renderPartial('/site/_login')?>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?else:?>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><?=CHtml::link('Профиль',array('user/profile'))?></li>
+                            <li><?=CHtml::link('Выйти',array('user/logout'))?></li>
+                        </ul>
+                    <?endif;?>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-                            <ul id="login-dp" class="dropdown-menu">
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <?$model = new LoginForm;?>
-                                            <?php $form=$this->beginWidget('CActiveForm', array(
-                                                'id'=>'login-form',
-                                                'htmlOptions'=>array(
-                                                    'role'=>'form',
-                                                    'class'=>'login-form',
-                                                    'accept-charset'=>'UTF-8'
-                                                )
-                                            )); ?>
-
-                                                <div class="form-group">
-                                                    <?php echo $form->labelEx($model,'username',array('class'=>'sr-only')); ?>
-                                                    <?php echo $form->textField($model,'username',array('class'=>'form-control','placeholder'=>'Логин')); ?>
-                                                    <?php echo $form->error($model,'username'); ?>
-                                                </div>
-                                                <div class="form-group">
-                                                    <?php echo $form->labelEx($model,'password',array('class'=>'sr-only')); ?>
-                                                    <?php echo $form->passwordField($model,'password',array('class'=>'form-control','placeholder'=>'Пароль')); ?>
-                                                    <?php echo $form->error($model,'password'); ?>
-                                                    <label class="sr-only" for="exampleInputPassword2">Пароль</label>
-                                                    <div class="help-block text-right"><a href="#">Забыли пароль?</a></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary btn-block">Войти</button>
-                                                </div>
-                                                <div class="checkbox">
-
-
-
-                                                </div>
-                                                    <label>
-                                                        <?php echo $form->checkBox($model,'rememberMe'); ?> Запомнить меня
-                                                    </label>
-                                                    <?php echo $form->error($model,'rememberMe'); ?>
-                                                </div>
-                                            <?php $this->endWidget(); ?>
-                                        </div>
-                                        <div class="bottom text-center">
-                                            Нет аккаунта? <?php echo CHtml::link(Yii::t('main','Зарегестрироваться'),'user/register',array())?>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>

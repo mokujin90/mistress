@@ -35,10 +35,5 @@ class Makeup
         return "/images/assets/img-" . rand(0, 1) . ".png";
     }
 
-    public static function dump($var, $die = false)
-    {
-        CVarDumper::dump($var, 10, true);
-        if ($die)
-            die;
-    }
+
 }

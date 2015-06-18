@@ -44,8 +44,8 @@ class ActiveRecord extends CActiveRecord
      */
     public function hash($attribute = 'password')
     {
-        $salt = "*^";
-        return md5(($this->{$attribute}) . $salt);
+        return Candy::hash($this->{$attribute});
+
     }
 
     /**

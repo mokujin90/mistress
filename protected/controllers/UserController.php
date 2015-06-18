@@ -26,13 +26,13 @@ class UserController extends BaseController
         if (!Yii::app()->user->isGuest) {
             $this->redirectByRole();
         }
-
         $model = new LoginForm;
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             if ($model->validate() && $model->login()) {
-                $this->redirectByRole();
+
             }
+            $this->renderJSON($model->getErrors());
         }
         $this->render('login', array('model' => $model));
     }
@@ -43,14 +43,20 @@ class UserController extends BaseController
         $this->redirect(Yii::app()->homeUrl);
     }
 
+    public function actionProfile()
+    {
+        $this->render('profile');
+    }
+
     public function actionRegister()
     {
         $model = new User('signup');
         if (Yii::app()->request->isPostRequest) {
             $model->attributes = $_REQUEST[CHtml::modelName($model)];
+            $model->password_hash = $model->hash();
             $model->level_id = User::DEF_LEVEL;
             if ($model->save()) {
-                //Mail::send($model->email, Yii::t('main', 'Подтверждение регистрации'), 'register', array('model' => $model));
+                Mail::send($model->email, Yii::t('main', 'Подтверждение регистрации'), 'register', array('model' => $model));
                 $this->redirect($this->createUrl('site/index'));
             }
         }
@@ -65,7 +71,7 @@ class UserController extends BaseController
      */
     public function actionConfirm($id, $hash)
     {
-        /*$model = User::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
         if (!$model || $model->is_active) {
             throw new CHttpException(404, Yii::t('main', 'Указанная запись не найдена'));
         }
@@ -76,6 +82,6 @@ class UserController extends BaseController
         if ($model->save()) {
             $model->autologin();
         }
-        $this->redirect($this->createUrl('user/profile'));*/
+        $this->redirect($this->createUrl('user/profile'));
     }
 }

@@ -71,8 +71,8 @@ class Mail extends CComponent
 
         $mailer->Host = "smtp.yandex.ru"; // specify main and backup server
         $mailer->SMTPAuth = true; // turn on SMTP authentication
-        $mailer->Username = "termin@wconsults.ru"; // SMTP username
-        $mailer->Password = "123456"; // SMTP passwordtest@termin.wconsults.ru
+        $mailer->Username = ""; // SMTP username
+        $mailer->Password = ""; // SMTP passwordtest@termin.wconsults.ru
         $mailer->Port = 465;
         $mailer->SMTPSecure = 'ssl';
         $mailer->ClearAddresses();
@@ -84,7 +84,7 @@ class Mail extends CComponent
     private static function getSubject($const){
         switch($const){
             case self::S_REGISTER:
-                return Yii::t('main','Регистрация на сайте iip.ru');
+                return Yii::t('main','Регистрация на сайте Оказия');
             case self::S_CHECK_EMAIL:
                 return Yii::t('main','Подтверждение электронного ящика');
             case self::S_RESTORE:
