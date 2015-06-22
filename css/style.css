@@ -102,7 +102,7 @@ a:hover {
   }
 }
 /* line 86, ../sass/_components.scss */
-.square, .btn {
+.square {
   border-radius: 0px !important;
 }
 
@@ -365,7 +365,7 @@ div.user-menu div.user-menu-content:not(.active) {
 }
 
 /* line 299, ../sass/_components.scss */
-.square, .btn {
+.square {
   border-radius: 0px !important;
 }
 

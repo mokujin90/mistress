@@ -27,13 +27,12 @@ class SiteController extends BaseController
 	 */
 	public function actionIndex()
 	{
-        //$this->layout = '//layouts/column1';
+        $this->layout = '//layouts/new';
 
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index');
 	}
-
 	/**
 	 * This is the action to handle external exceptions.
 	 */

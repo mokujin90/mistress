@@ -83,7 +83,7 @@ a{
     }
 }
 
-.square, .btn {
+.square {
     border-radius: 0px!important;
 }
 
@@ -296,9 +296,6 @@ div.user-menu div.user-menu-content:not(.active){
     margin-top: 15px;
 }
 
-.square, .btn {
-    border-radius: 0px!important;
-}
 
 /* -- media query for user profile image -- */
 @media (max-width: 767px) {
