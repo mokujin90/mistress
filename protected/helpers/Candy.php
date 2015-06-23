@@ -158,8 +158,48 @@ class Candy
         return $name;
     }
 
-    public static function hash($string){
+    public static function hash($string)
+    {
         $salt = "*^";
         return md5(($string) . $salt);
+    }
+
+    /**
+     * Метод, который, получив полный массив и выбранные id (может быть в виде сериаллайз массива),
+     * вернет строку через сепоратор ответ
+     * @param $fullArray
+     * @param $selectedId
+     */
+    public static function implodeFromPart($fullArray, $selectedId, $separator = ',')
+    {
+        if (self::isSerialize($selectedId)) {
+            $selectedId = unserialize($selectedId);
+        }
+        $result = '';
+        foreach ($fullArray as $key => $item) {
+            if (in_array($key, $selectedId))
+                $result[$key] = $item;
+        }
+        return implode(', ', $result);
+    }
+
+    /**
+     * В зависимости от id получить выбранный результат
+     */
+    public static function returnDictionaryValue($dictionary, $id, $separator = ',')
+    {
+        if (is_null($id)) {
+            return $dictionary;
+        } elseif (Candy::isSerialize($id) || is_array($id)) {
+            return Candy::implodeFromPart($dictionary, $id, $separator);
+        } else {
+            return $dictionary[$id];
+        }
+    }
+
+    public static function isSerialize($string)
+    {
+        $data = @unserialize($string);
+        return $data !== false;
     }
 }

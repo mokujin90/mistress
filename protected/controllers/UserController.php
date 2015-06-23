@@ -30,9 +30,8 @@ class UserController extends BaseController
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             if ($model->validate() && $model->login()) {
-
+                $this->redirectByRole();
             }
-            $this->renderJSON($model->getErrors());
         }
         $this->render('login', array('model' => $model));
     }
