@@ -202,4 +202,13 @@ class Candy
         $data = @unserialize($string);
         return $data !== false;
     }
+
+    /**
+     * Вернуть имя для элемента формы, при этом получив нечто вида Destination[name][43] (если есть id)
+     * @param $model CActiveRecord
+     */
+    public static function modelNames($model,$attribute, $newKey = 'new')
+    {
+        return  $model->isNewRecord ?  "{$newKey}[".CHtml::modelName($model)."][{$attribute}][]" : CHtml::modelName($model)."[{$attribute}][{$model->id}]";
+    }
 }

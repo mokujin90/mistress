@@ -12,11 +12,11 @@ var siteController = {
     }
 }
 var userController = {
-    profile:function(){
+    profile: function () {
         var $btnSets = $('#responsive'),
             $btnLinks = $btnSets.find('a');
 
-        $btnLinks.click(function(e) {
+        $btnLinks.click(function (e) {
             e.preventDefault();
             $(this).siblings('a.active').removeClass("active");
             $(this).addClass("active");
@@ -27,12 +27,28 @@ var userController = {
         $("[rel='tooltip']").tooltip();
 
         $('.view').hover(
-            function(){
+            function () {
                 $(this).find('.caption').slideDown(250); //.fadeIn(250)
             },
-            function(){
+            function () {
                 $(this).find('.caption').slideUp(250); //.fadeOut(205)
             }
         );
+    }
+}
+var orderController = {
+    update: function () {
+        $('.type-order').change(function(){
+            var val = $(this).val();
+            $.get('/order/ajaxType',{type:val},function(data){
+                $('#ajax-setting').html(data);
+            });
+        });
+        $(document).on('click.order','.add-destination',function(){
+            $.get('/order/ajaxAddDestination',function(data){
+               $('.advanced-destination').append(data);
+            });
+            return false;
+        });
     }
 }

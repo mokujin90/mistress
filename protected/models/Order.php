@@ -10,12 +10,14 @@
  * @property string $type
  * @property string $user_create
  * @property string $user_work
+ * @property string $create_date
+ * @property string $update_date
  *
  * The followings are the available model relations:
  * @property Destinations[] $destinations
  * @property User $userWork
  */
-class Order extends CActiveRecord
+class Order extends ActiveRecord
 {
     /**
      * @return string the associated database table name
@@ -36,10 +38,10 @@ class Order extends CActiveRecord
             array('name, type, user_create', 'required'),
             array('type', 'length', 'max' => 7),
             array('user_create, user_work', 'length', 'max' => 10),
-            array('description', 'safe'),
+            array('description, create_date,update_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, description, type, user_create, user_work', 'safe', 'on' => 'search'),
+            array('id, name, description, type, user_create, create_date, user_work', 'safe', 'on' => 'search'),
         );
     }
 
@@ -52,6 +54,7 @@ class Order extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'destinations' => array(self::HAS_MANY, 'Destinations', 'order_id'),
+            'from' => array(self::HAS_ONE, 'Destinations', 'order_id','condition'=>'type="from"'),
             'userWork' => array(self::BELONGS_TO, 'User', 'user_work'),
         );
     }
@@ -68,6 +71,7 @@ class Order extends CActiveRecord
             'type' => 'Type',
             'user_create' => 'User Create',
             'user_work' => 'User Work',
+            'create_date' => 'Create Date',
         );
     }
 
@@ -95,6 +99,7 @@ class Order extends CActiveRecord
         $criteria->compare('type', $this->type, true);
         $criteria->compare('user_create', $this->user_create, true);
         $criteria->compare('user_work', $this->user_work, true);
+        $criteria->compare('create_date',$this->create_date,true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerScript('route', "route.initJs('".Yii::app()->c
                         <?endif;?>
 
                         <li class="postadd">
-                            <?php echo CHtml::link('Новое объявлние',array('order/create'),array('class'=>'btn btn-block btn-border btn-post btn-danger'))?>
+                            <?php echo CHtml::link('Новое объявлние',array('order/update'),array('class'=>'btn btn-block btn-border btn-post btn-danger'))?>
                         </li>
                     </ul>
                 </div>

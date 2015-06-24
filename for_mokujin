@@ -1,0 +1,4 @@
+25.06.2015
+ALTER TABLE `Order` ADD COLUMN `create_date` DATETIME NULL AFTER `user_work`;
+
+ALTER TABLE `Order` ADD COLUMN `update_date` DATETIME NULL AFTER `create_date`;

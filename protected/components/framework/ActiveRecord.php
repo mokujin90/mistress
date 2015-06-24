@@ -10,7 +10,7 @@ class ActiveRecord extends CActiveRecord
 
     public function beforeValidate()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord ) {
             if ($this->hasAttribute('create_date')) {
                 $this->create_date = Candy::currentDate();
             }
