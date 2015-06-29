@@ -161,8 +161,4 @@ class User extends ActiveRecord
         }
     }
 
-    public function hash()
-    {
-        return parent::hash();
-    }
 }

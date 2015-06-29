@@ -2,3 +2,10 @@
 ALTER TABLE `Order` ADD COLUMN `create_date` DATETIME NULL AFTER `user_work`;
 
 ALTER TABLE `Order` ADD COLUMN `update_date` DATETIME NULL AFTER `create_date`;
+
+29.06.2015
+CREATE TABLE `Level`( `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, `name` VARCHAR(255) NOT NULL, `description` TEXT, `max_price` INT(10), `max_goods` INT(10), `max_weight` INT(10), PRIMARY KEY (`id`) );
+
+INSERT INTO `Level` (`name`, `max_price`, `max_goods`, `max_weight`) VALUES ('Первый уровень', '4', '4', '4');
+
+ALTER TABLE `User` ADD FOREIGN KEY (`level_id`) REFERENCES `Level`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL;

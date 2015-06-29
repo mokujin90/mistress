@@ -11,6 +11,7 @@ Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js'
 Yii::app()->clientScript->registerCoreScript('jquery');
 Yii::app()->clientScript->registerScriptFile('/js/bootstrap.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.mask.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/confirmDialog.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/plugins.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/components.js', CClientScript::POS_END); //js-скрипт для внешней части сайта
