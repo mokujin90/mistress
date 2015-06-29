@@ -12,12 +12,14 @@
  * @property string $user_work
  * @property string $create_date
  * @property string $update_date
+ * @property double $weight
+ * @property string $price
  *
  * The followings are the available model relations:
  * @property Destinations[] $destinations
  * @property User $userWork
  */
-class Order extends ActiveRecord
+class Order extends CActiveRecord
 {
     /**
      * @return string the associated database table name
@@ -36,12 +38,14 @@ class Order extends ActiveRecord
         // will receive user inputs.
         return array(
             array('name, type, user_create', 'required'),
+            array('weight', 'numerical'),
             array('type', 'length', 'max' => 7),
             array('user_create, user_work', 'length', 'max' => 10),
-            array('description, create_date,update_date', 'safe'),
+            array('price', 'length', 'max' => 255),
+            array('description, create_date, update_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, description, type, user_create, create_date, user_work', 'safe', 'on' => 'search'),
+            array('id, name, description, type, user_create, user_work, create_date, update_date, weight, price', 'safe', 'on' => 'search'),
         );
     }
 
@@ -54,8 +58,8 @@ class Order extends ActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'destinations' => array(self::HAS_MANY, 'Destinations', 'order_id'),
-            'from' => array(self::HAS_ONE, 'Destinations', 'order_id','condition'=>'type="from"'),
             'userWork' => array(self::BELONGS_TO, 'User', 'user_work'),
+            'from' => array(self::HAS_ONE, 'Destinations', 'order_id','condition'=>'type="from"'),
         );
     }
 
@@ -72,6 +76,9 @@ class Order extends ActiveRecord
             'user_create' => 'User Create',
             'user_work' => 'User Work',
             'create_date' => 'Create Date',
+            'update_date' => 'Update Date',
+            'weight' => 'Weight',
+            'price' => 'Price',
         );
     }
 
@@ -99,7 +106,10 @@ class Order extends ActiveRecord
         $criteria->compare('type', $this->type, true);
         $criteria->compare('user_create', $this->user_create, true);
         $criteria->compare('user_work', $this->user_work, true);
-        $criteria->compare('create_date',$this->create_date,true);
+        $criteria->compare('create_date', $this->create_date, true);
+        $criteria->compare('update_date', $this->update_date, true);
+        $criteria->compare('weight', $this->weight);
+        $criteria->compare('price', $this->price, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

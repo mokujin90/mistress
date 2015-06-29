@@ -9,3 +9,7 @@ CREATE TABLE `Level`( `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, `name` VARC
 INSERT INTO `Level` (`name`, `max_price`, `max_goods`, `max_weight`) VALUES ('Первый уровень', '4', '4', '4');
 
 ALTER TABLE `User` ADD FOREIGN KEY (`level_id`) REFERENCES `Level`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL;
+
+ALTER TABLE `Order` ADD COLUMN `weight` DOUBLE NULL AFTER `update_date`, ADD COLUMN `price` VARCHAR(255) NULL AFTER `weight`;
+
+ALTER TABLE `Destinations` DROP COLUMN `weight`, DROP COLUMN `price`;

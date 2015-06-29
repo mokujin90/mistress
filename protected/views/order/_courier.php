@@ -5,11 +5,14 @@
  * @var $form CActiveForm
  */
 ?>
-<div class="content-subheading"> <i class="icon-user fa"></i> <strong>Откуда</strong> </div>
+
 <?=$this->renderPartial('_destination',array('model'=>$from,'form'=>$form))?>
-<div class="content-subheading"> <i class="icon-user fa"></i> <strong>Куда</strong> </div>
+<?Candy::dump($where)?>
 <?foreach($where as $whereOne):?>
     <?=$this->renderPartial('_destination',array('model'=>$whereOne,'form'=>$form))?>
 <?endforeach;?>
+<div class="advanced-destination">
 
+</div>
+<a class="btn btn-block btn-border btn-post btn-danger add-destination" href="#">Добавить направление</a>
 

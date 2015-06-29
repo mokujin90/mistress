@@ -12,6 +12,8 @@ class BaseController extends CController
      */
     public $user;
 
+    public $json = array();
+
     public function init()
     {
         header('Content-Type: text/html; charset=utf-8');
@@ -155,13 +157,14 @@ class BaseController extends CController
      * @param string $ampersand
      * @return string
      */
-    public function createMergeUrl($route,$params=array(), $ampersand='&'){
+    public function createMergeUrl($route, $params = array(), $ampersand = '&')
+    {
         $paramsWithGet = $_GET;
 
-        foreach($params as $key => $value){
+        foreach ($params as $key => $value) {
             $paramsWithGet[$key] = $value;
         }
-        return $this->createUrl($route,array(),$ampersand)."?".http_build_query($paramsWithGet);
+        return $this->createUrl($route, array(), $ampersand) . "?" . http_build_query($paramsWithGet);
 
     }
 }

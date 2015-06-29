@@ -26,7 +26,7 @@ class Candy
      */
     public static function error($model, $field)
     {
-        return '<div class="errorMessage" id="' . get_class($model) . '_' . $field . '_em_" style="display: none;"></div>';
+        return '<div class="errorMessage" data-attribute="' . get_class($model) . '_' . $field . '" style="display: none;"></div>';
     }
 
     /**
@@ -209,6 +209,6 @@ class Candy
      */
     public static function modelNames($model,$attribute, $newKey = 'new')
     {
-        return  $model->isNewRecord ?  "{$newKey}[".CHtml::modelName($model)."][{$attribute}][]" : CHtml::modelName($model)."[{$attribute}][{$model->id}]";
+        return  $model->isNewRecord ?  CHtml::modelName($model)."[{$attribute}][]" : CHtml::modelName($model)."[{$attribute}][{$model->id}]";
     }
 }

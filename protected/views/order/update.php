@@ -23,32 +23,55 @@
                             )
                         )); ?>
                             <fieldset>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label"><?=$model->getAttributeLabel('type')?></label>
-                                    <div class="col-md-8">
-                                        <label class="radio-inline" for="radios-0">
-                                            <?=CHtml::radioButton('Order[type]',$model->type==Order::T_CLIENT,array('id'=>'radios-0','class'=>'client type-order','value'=>Order::T_CLIENT,'disabled'=>!$model->isNewRecord))?>
-                                            <?=Order::getType(Order::T_CLIENT)?> </label>
-                                        <label class="radio-inline" for="radios-1">
-                                            <?=CHtml::radioButton('Order[type]',$model->type==Order::T_COURIER,array('id'=>'radios-1','class'=>'courier type-order','value'=>Order::T_COURIER,'disabled'=>!$model->isNewRecord))?>
-                                            <?=Order::getType(Order::T_COURIER)?> </label>
+                                <div class="order-block">
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><?=$model->getAttributeLabel('type')?></label>
+                                        <div class="col-md-8">
+                                            <label class="radio-inline" for="radios-0">
+                                                <?=CHtml::radioButton('Order[type]',$model->type==Order::T_CLIENT,array('id'=>'radios-0','class'=>'client type-order','value'=>Order::T_CLIENT,'disabled'=>!$model->isNewRecord))?>
+                                                <?=Order::getType(Order::T_CLIENT)?> </label>
+                                            <label class="radio-inline" for="radios-1">
+                                                <?=CHtml::radioButton('Order[type]',$model->type==Order::T_COURIER,array('id'=>'radios-1','class'=>'courier type-order','value'=>Order::T_COURIER,'disabled'=>!$model->isNewRecord))?>
+                                                <?=Order::getType(Order::T_COURIER)?> </label>
+                                                <?=Candy::error($model,'type');?>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <?=$form->labelEx($model,'name',array('class'=>'col-md-3 control-label'))?>
+                                        <div class="col-md-8">
+                                            <?=$form->textField($model,'name',array('class'=>'form-control input-md'))?>
+                                            <?=Candy::error($model,'name');?>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <?=$form->labelEx($model,'description',array('class'=>'col-md-3 control-label'))?>
+                                        <div class="col-md-8">
+                                            <?=$form->textArea($model,'description',array('class'=>'form-control'))?>
+                                            <?=Candy::error($model,'description');?>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <?=$form->labelEx($model,'weight',array('class'=>'col-md-3 control-label'))?>
+                                        <div class="col-md-4">
+                                            <div class="input-group"> <span class="input-group-addon">$</span>
+                                                <?=$form->textField($model,'weight',array('class'=>'form-control'))?>
+                                                <?=Candy::error($model,'weight');?>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?=$form->labelEx($model,'price',array('class'=>'col-md-4 control-label'))?>
+                                            <div class="input-group"> <span class="input-group-addon">$</span>
+                                                <?=$form->textField($model,'price',array('class'=>'form-control'))?>
+                                                <?=Candy::error($model,'price');?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <?=$form->labelEx($model,'name',array('class'=>'col-md-3 control-label'))?>
-                                    <div class="col-md-8">
-                                        <?=$form->textField($model,'name',array('class'=>'form-control input-md'))?>
-                                        <span class="help-block">A great title needs at least 60 characters. </span> </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <?=$form->labelEx($model,'description',array('class'=>'col-md-3 control-label'))?>
-                                    <div class="col-md-8">
-                                        <?=$form->textArea($model,'description',array('class'=>'form-control'))?>
-                                    </div>
-                                </div>
-
                                 <div id="ajax-setting">
                                     <?=$this->renderPartial('_client',array('from'=>$from,'where'=>$where,'form'=>$form))?>
                                 </div>
@@ -65,7 +88,7 @@
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"></label>
-                                    <div class="col-md-8"> <?=CHtml::submitButton($model->isNewRecord ? "Создать" : "Сохранить",array('class'=>'btn btn-success btn-lg'))?></div>
+                                    <div class="col-md-8"> <?=CHtml::submitButton($model->isNewRecord ? "Создать" : "Сохранить",array('class'=>'btn btn-success btn-lg','id'=>'ajax-save'))?></div>
                                 </div>
                             </fieldset>
                         <?php $this->endWidget(); ?>
