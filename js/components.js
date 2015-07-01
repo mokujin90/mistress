@@ -31,6 +31,7 @@ var fancybox = {
 
             addClass = typeof addClass !== 'undefined' ? " " + addClass : '';
             return {
+                type:'ajx',
                 fitToView: false,//отключаем автоопределение ширины
                 autoSize: false,
                 scrolling: 'no',
@@ -64,8 +65,8 @@ var fancybox = {
             });
             $.fancybox.reposition();
         }
-    },
-    form = {
+    }
+var form = {
         ajaxError: function (data, formSelector, noExit, isFancy) {
             noExit = get(noExit, true);
             isFancy = get(isFancy, false);
@@ -119,5 +120,28 @@ var fancybox = {
         clearValidate: function () {
             $('.errorMessage').html('').hide();
         }
-
     }
+var map ={
+    init:function(){
+
+        /**
+         * Развесим ивенты на ссылку, откывающую карту
+         */
+        $(document).on('click.map','.check-map',function(){
+            var $this = $(this),
+                $destinationBlock = $this.closest('.destination-block');
+            $.fancybox.open( $.extend(fancybox.init(), {
+                    href:$this.data('href'),
+                    width:'50%',
+                    height:'60%',
+                    type:'iframe',
+                    'afterClose':function(){
+                        $destinationBlock.find('.lat').val(localStorage['lat']);
+                        $destinationBlock.find('.lng').val(localStorage['lng']);
+                        $destinationBlock.find('.name-value').val(localStorage['city']);
+                    }
+                }));
+
+        });
+    }
+}

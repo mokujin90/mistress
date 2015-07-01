@@ -4,6 +4,7 @@ $(window).load(function () {
 
 $(document).ready(function () {
     view.login();
+    map.init();
 });
 
 var siteController = {
@@ -37,14 +38,23 @@ var userController = {
     }
 }
 var orderController = {
+    init:function(){
+        form.datepicker();
+        $('.mask-time').mask('00:00');
+
+    },
     update: function () {
+        orderController.init();
         /**
          * Смена типа заказа
          */
         $('.type-order').change(function () {
             var val = $(this).val();
             $.get('/order/ajaxType', {type: val}, function (data) {
-                $('#ajax-setting').html(data);
+                $.when($('#ajax-setting').html(data)).then(function(){
+                    orderController.init();
+                    $('#ajax-setting').find('[data-mask]').mask({});
+                })
             });
         });
         /**
@@ -79,6 +89,33 @@ var orderController = {
                             });
                         });
                     }
+                }
+            });
+            return false;
+        });
+    }
+}
+var destinationController={
+    map:function(){
+        $('#save-marker').click(function(){
+            var lat = $('#Destinations_lat').val(),
+                lng = $('#Destinations_lng').val(),
+                geocoder = new google.maps.Geocoder(),
+                latlng = new google.maps.LatLng(lat, lng),
+                structure = {a:1},
+                city = '';
+            var geocodingAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng;
+            localStorage.setItem('lat',lat);
+            localStorage.setItem('lng',lng);
+            $.getJSON(geocodingAPI, function (json) {
+                if (json.status == "OK") {
+                    //Check result 0
+                    var result = json.results[0];
+                    //look for locality tag and administrative_area_level_1
+                    var city = "";
+                    var state = "";
+                    localStorage.setItem('city',(result.formatted_address));
+                    parent.jQuery.fancybox.close();
                 }
             });
             return false;

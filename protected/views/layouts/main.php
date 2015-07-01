@@ -4,11 +4,13 @@ Yii::app()->clientScript->registerCssFile('/css/bootstrap.min.css');
 Yii::app()->clientScript->registerCssFile('/css/normalize.css');
 Yii::app()->clientScript->registerCssFile('/css/style.css');
 Yii::app()->clientScript->registerCssFile('/css/vendor/jquery.fancybox.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScriptUrl(). '/jui/css/base/jquery-ui.css');
 
 
 #JS
 Yii::app()->clientScript->registerScriptFile('/js/vendor/modernizr-2.6.2.min.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCoreScript('jquery');
+Yii::app()->clientScript->registerCoreScript('jquery.ui');
 Yii::app()->clientScript->registerScriptFile('/js/bootstrap.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.fancybox.pack.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile('/js/vendor/jquery.mask.min.js', CClientScript::POS_END);

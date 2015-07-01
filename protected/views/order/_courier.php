@@ -5,9 +5,7 @@
  * @var $form CActiveForm
  */
 ?>
-
 <?=$this->renderPartial('_destination',array('model'=>$from,'form'=>$form))?>
-<?Candy::dump($where)?>
 <?foreach($where as $whereOne):?>
     <?=$this->renderPartial('_destination',array('model'=>$whereOne,'form'=>$form))?>
 <?endforeach;?>

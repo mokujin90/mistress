@@ -15,6 +15,8 @@
  * @property string $time_from
  * @property string $time_to
  * @property string $type
+ * @property string $lat
+ * @property string $lng
  *
  * The followings are the available model relations:
  * @property Order $order
@@ -38,15 +40,14 @@ class Destinations extends CActiveRecord
         // will receive user inputs.
         return array(
             array('order_id, name, date, type', 'required'),
-            array('order_id', 'length', 'max' => 10),
-            array('contact_name, contact_phone, time_from, time_to', 'length', 'max' => 255),
-            array('number', 'length', 'max' => 100),
-            array('type', 'length', 'max' => 5),
+            array('order_id', 'length', 'max'=>10),
+            array('contact_name, contact_phone, time_from, time_to', 'length', 'max'=>255),
+            array('number, lat, lng', 'length', 'max'=>100),
+            array('type', 'length', 'max'=>5),
             array('description', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, order_id, name, description, contact_name, contact_phone, number, date, time_from, time_to, type', 'safe', 'on' => 'search'),
-
+            array('id, order_id, name, description, contact_name, contact_phone, number, date, time_from, time_to, type, lat, lng', 'safe', 'on'=>'search'),
         );
     }
 
@@ -79,6 +80,8 @@ class Destinations extends CActiveRecord
             'time_from' => 'Time From',
             'time_to' => 'Time To',
             'type' => 'Type',
+            'lat' => 'Lat',
+            'lng' => 'Lng',
         );
     }
 

@@ -6,6 +6,9 @@ class Candy
     const DATE = 'Y-m-d';
     const NORMAL = 'd.m.Y';
 
+    const MASK_PHONE = '+0 (000) - 000 - 0000';
+    const MASK_TIME = '00:00';
+
     //Вернуть текущую дату в нужном формате
     public static function currentDate($format = "Y-m-d H:i:s")
     {

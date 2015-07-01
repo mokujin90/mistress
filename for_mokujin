@@ -13,3 +13,6 @@ ALTER TABLE `User` ADD FOREIGN KEY (`level_id`) REFERENCES `Level`(`id`) ON UPDA
 ALTER TABLE `Order` ADD COLUMN `weight` DOUBLE NULL AFTER `update_date`, ADD COLUMN `price` VARCHAR(255) NULL AFTER `weight`;
 
 ALTER TABLE `Destinations` DROP COLUMN `weight`, DROP COLUMN `price`;
+
+02.07.2015
+ALTER TABLE `Destinations` ADD COLUMN `lat` VARCHAR(100) NULL AFTER `type`, ADD COLUMN `lng` VARCHAR(100) NULL AFTER `lat`;
