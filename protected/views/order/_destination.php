@@ -12,15 +12,19 @@
 <div class="from-block destination-block">
     <?=$form->hiddenField($model,'id',array('name'=>Candy::modelNames($model,'id')))?>
     <?=$form->hiddenField($model,'type',array('name'=>Candy::modelNames($model,'type')))?>
-    <?=$form->hiddenField($model,'lat',array('name'=>Candy::modelNames($model,'type'),'class'=>'lat'))?>
-    <?=$form->hiddenField($model,'lng',array('name'=>Candy::modelNames($model,'type'),'class'=>'lng'))?>
+    <?=$form->hiddenField($model,'lat',array('name'=>Candy::modelNames($model,'lat'),'class'=>'lat'))?>
+    <?=$form->hiddenField($model,'lng',array('name'=>Candy::modelNames($model,'lng'),'class'=>'lng'))?>
+    <?=$form->hiddenField($model,'pos_country',array('name'=>Candy::modelNames($model,'pos_country'),'class'=>'country'))?>
+    <?=$form->hiddenField($model,'pos_region',array('name'=>Candy::modelNames($model,'pos_region'),'class'=>'region'))?>
+    <?=$form->hiddenField($model,'pos_city',array('name'=>Candy::modelNames($model,'pos_city'),'class'=>'city'))?>
+    <?=$form->hiddenField($model,'pos_address',array('name'=>Candy::modelNames($model,'pos_address'),'class'=>'address'))?>
     <div class="form-group">
 
         <?=$form->labelEx($model,'name',array('class'=>'col-md-3 control-label'))?>
         <div class="col-md-8">
             <div class="input-group">
                 <span class="input-group-addon check-map" data-href="<?=$this->createUrl('destination/map');?>"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></span>
-                <?=$form->textField($model,'name',array('class'=>'form-control input-md name-value','name'=>Candy::modelNames($model,'name')))?>
+                <?=CHtml::textField('name',$model->getName(),array('class'=>'form-control input-md name-value','name'=>Candy::modelNames($model,'name')))?>
             </div>
             <?=Candy::error($model,'name'); ?>
         </div>
@@ -49,9 +53,9 @@
         </div>
     </div>
     <div class="form-group">
-        <?=$form->labelEx($model,'date',array('class'=>'col-md-3 control-label'))?>
+        <?=$form->labelEx($model,'date',array('class'=>'col-md-3 control-label','for'=>Makeup::id()))?>
         <div class="col-md-3">
-            <?=$form->textField($model,'date',array('class'=>'form-control datepicker','name'=>Candy::modelNames($model,'date')))?>
+            <?=$form->textField($model,'date',array('class'=>'form-control datepicker','name'=>Candy::modelNames($model,'date'),'id'=>Makeup::id()))?>
             <?=Candy::error($model,'date'); ?>
         </div>
         <div class="col-md-2">

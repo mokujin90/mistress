@@ -17,7 +17,7 @@
             padding: 0px
         }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     <script>
         function initialize() {
             var myLatlng = new google.maps.LatLng(47.233333,39.700000);
@@ -33,17 +33,51 @@
                 title: 'Hello World!',
                 draggable:true
             });
-            google.maps.event.addListener(marker, 'dragend', function (event) {
-                $('#Destinations_lat').val(this.getPosition().lat());
-                $('#Destinations_lng').val(this.getPosition().lng());
+            var input = /** @type {HTMLInputElement} */(
+                document.getElementById('pac-input'));
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            var searchBox = new google.maps.places.SearchBox(
+                /** @type {HTMLInputElement} */(input));
+            google.maps.event.addListener(searchBox, 'places_changed', function() {
+                var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+                marker.setPosition(places[0].geometry.location);
+                savePosition(marker);
+                map.setCenter(places[0].geometry.location);
+
             });
-
+            google.maps.event.addListener(map, 'bounds_changed', function() {
+                var bounds = map.getBounds();
+                searchBox.setBounds(bounds);
+            });
+            savePosition(marker);
+            /**
+             * Перетаскивание марекера по карте
+             * */
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                savePosition(this);
+            });
+            /**
+             * Клик по карте переместит наш марркер и сдвинет центр карты
+             */
+            google.maps.event.addListener(map, 'click', function(event) {
+                marker.setPosition(event.latLng);
+                map.setCenter(event.latLng);
+            });
         }
-
+        function savePosition($this){
+            $('#Destinations_lat').val($this.getPosition().lat());
+            $('#Destinations_lng').val($this.getPosition().lng());
+        }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
 <body>
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas"></div>
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'map-form',

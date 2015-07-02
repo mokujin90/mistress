@@ -138,7 +138,18 @@ var map ={
                     'afterClose':function(){
                         $destinationBlock.find('.lat').val(localStorage['lat']);
                         $destinationBlock.find('.lng').val(localStorage['lng']);
-                        $destinationBlock.find('.name-value').val(localStorage['city']);
+                        var structure = [localStorage['country'], localStorage['region'], localStorage['city'], localStorage['address']];
+                        $destinationBlock.find('.region').val(localStorage['region']);
+                        $destinationBlock.find('.country').val(localStorage['country']);
+                        $destinationBlock.find('.city').val(localStorage['city']);
+                        $destinationBlock.find('.address').val(localStorage['address']);
+                        $destinationBlock.find('.name-value').val(structure.join(", "));
+                        localStorage.removeItem('lat');
+                        localStorage.removeItem('lng');
+                        localStorage.removeItem('region');
+                        localStorage.removeItem('country');
+                        localStorage.removeItem('city');
+                        localStorage.removeItem('address');
                     }
                 }));
 

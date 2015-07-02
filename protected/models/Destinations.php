@@ -6,7 +6,10 @@
  * The followings are the available columns in table 'Destinations':
  * @property string $id
  * @property string $order_id
- * @property string $name
+ * @property string $pos_country
+ * @property string $pos_region
+ * @property string $pos_city
+ * @property string $pos_address
  * @property string $description
  * @property string $contact_name
  * @property string $contact_phone
@@ -39,15 +42,15 @@ class Destinations extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('order_id, name, date, type', 'required'),
-            array('order_id', 'length', 'max'=>10),
-            array('contact_name, contact_phone, time_from, time_to', 'length', 'max'=>255),
-            array('number, lat, lng', 'length', 'max'=>100),
-            array('type', 'length', 'max'=>5),
-            array('description', 'safe'),
+            array('order_id, pos_country, date, type', 'required'),
+            array('order_id', 'length', 'max' => 10),
+            array('pos_country, pos_region, pos_city, contact_name, contact_phone, time_from, time_to', 'length', 'max' => 255),
+            array('number, lat, lng', 'length', 'max' => 100),
+            array('type', 'length', 'max' => 5),
+            array('pos_address, description', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, order_id, name, description, contact_name, contact_phone, number, date, time_from, time_to, type, lat, lng', 'safe', 'on'=>'search'),
+            array('id, order_id, pos_country, pos_region, pos_city, pos_address, description, contact_name, contact_phone, number, date, time_from, time_to, type, lat, lng', 'safe', 'on' => 'search'),
         );
     }
 
@@ -71,29 +74,25 @@ class Destinations extends CActiveRecord
         return array(
             'id' => 'ID',
             'order_id' => 'Order',
-            'name' => 'Name',
-            'description' => 'Description',
-            'contact_name' => 'Contact Name',
-            'contact_phone' => 'Contact Phone',
-            'number' => 'Number',
-            'date' => 'Date',
-            'time_from' => 'Time From',
-            'time_to' => 'Time To',
-            'type' => 'Type',
+            'pos_country' => 'Страна',
+            'pos_region' => 'Регион',
+            'pos_city' => 'Город',
+            'pos_address' => 'Адрес',
+            'description' => 'Описание',
+            'contact_name' => 'Контактное лицо',
+            'contact_phone' => 'Контактный телефон',
+            'number' => 'Номер',
+            'date' => 'Дата',
+            'time_from' => 'С',
+            'time_to' => 'По',
+            'type' => 'Тип',
             'lat' => 'Lat',
             'lng' => 'Lng',
         );
     }
 
+
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
@@ -105,7 +104,10 @@ class Destinations extends CActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('order_id', $this->order_id, true);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('pos_country', $this->pos_country, true);
+        $criteria->compare('pos_region', $this->pos_region, true);
+        $criteria->compare('pos_city', $this->pos_city, true);
+        $criteria->compare('pos_address', $this->pos_address, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('contact_name', $this->contact_name, true);
         $criteria->compare('contact_phone', $this->contact_phone, true);
@@ -114,11 +116,14 @@ class Destinations extends CActiveRecord
         $criteria->compare('time_from', $this->time_from, true);
         $criteria->compare('time_to', $this->time_to, true);
         $criteria->compare('type', $this->type, true);
+        $criteria->compare('lat', $this->lat, true);
+        $criteria->compare('lng', $this->lng, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
+
 
     /**
      * Returns the static model of the specified AR class.
@@ -131,6 +136,7 @@ class Destinations extends CActiveRecord
         return parent::model($className);
     }
 
+    public $name = '';
     const T_FROM = 'from'; //откуда
     const T_WHERE = 'where'; //куда
 
@@ -139,5 +145,17 @@ class Destinations extends CActiveRecord
         $model = new self();
         $model->type = $type;
         return $model;
+    }
+
+    public function getName()
+    {
+        $position = array();
+        if(!empty($this->pos_region))
+            $position[] = $this->pos_region;
+        if(!empty($this->pos_city))
+            $position[] = $this->pos_region;
+        if(!empty($this->pos_address))
+            $position[] = $this->pos_address;
+        return implode(' ',$position);
     }
 }

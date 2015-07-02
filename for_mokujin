@@ -16,3 +16,7 @@ ALTER TABLE `Destinations` DROP COLUMN `weight`, DROP COLUMN `price`;
 
 02.07.2015
 ALTER TABLE `Destinations` ADD COLUMN `lat` VARCHAR(100) NULL AFTER `type`, ADD COLUMN `lng` VARCHAR(100) NULL AFTER `lat`;
+
+03.07.2015
+ALTER TABLE `Destinations` CHANGE `name` `pos_country` VARCHAR(255) CHARSET utf8 COLLATE utf8_general_ci NOT NULL, ADD COLUMN `pos_region` VARCHAR(255) NULL AFTER `pos_country`, ADD COLUMN `pos_city` VARCHAR(255) NULL AFTER `pos_region`, ADD COLUMN `pos_address` TEXT NULL AFTER `pos_city`;
+

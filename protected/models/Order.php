@@ -70,15 +70,15 @@ class Order extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'type' => 'Type',
-            'user_create' => 'User Create',
-            'user_work' => 'User Work',
-            'create_date' => 'Create Date',
+            'name' => 'Название',
+            'description' => 'Описание',
+            'type' => 'Тип',
+            'user_create' => 'Создатель',
+            'user_work' => 'Выполняющий',
+            'create_date' => 'Дата создания',
             'update_date' => 'Update Date',
-            'weight' => 'Weight',
-            'price' => 'Price',
+            'weight' => 'Вес',
+            'price' => 'Стоимость',
         );
     }
 

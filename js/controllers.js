@@ -114,7 +114,10 @@ var destinationController={
                     //look for locality tag and administrative_area_level_1
                     var city = "";
                     var state = "";
-                    localStorage.setItem('city',(result.formatted_address));
+                    localStorage.setItem('country',(result.address_components[5].long_name));
+                    localStorage.setItem('region',(result.address_components[4].long_name));
+                    localStorage.setItem('city',(result.address_components[2].long_name));
+                    localStorage.setItem('address',(result.address_components[1].long_name+" "+result.address_components[0].long_name));
                     parent.jQuery.fancybox.close();
                 }
             });
