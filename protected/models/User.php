@@ -17,6 +17,8 @@
  * @property string $level_id
  *
  * The followings are the available model relations:
+ * @property Order[] $orders
+ * @property Session[] $sessions
  * @property Level $level
  */
 class User extends ActiveRecord
@@ -44,6 +46,7 @@ class User extends ActiveRecord
         // will receive user inputs.
         return array(
             array('login, email', 'required'),
+            array('login, email', 'unique'),
             array('is_active, phone_approved, email_approved', 'numerical', 'integerOnly' => true),
             array('login, email, phone', 'length', 'max' => 255),
             array('level_id', 'length', 'max' => 10),
@@ -66,9 +69,12 @@ class User extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'orders' => array(self::HAS_MANY, 'Order', 'user_work'),
+            'sessions' => array(self::HAS_MANY, 'Session', 'user_id'),
             'level' => array(self::BELONGS_TO, 'Level', 'level_id'),
         );
     }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -146,6 +152,11 @@ class User extends ActiveRecord
         );
     }
 
+    public function getPersonName()
+    {
+        return implode(' ', array($this->last_name, $this->name));
+    }
+
     /**
      * Войти в систеы под выбранным пользователем
      */
@@ -161,4 +172,15 @@ class User extends ActiveRecord
         }
     }
 
+    /**
+     * Вернем предпоследнюю запись о заходе в систему. Ведь последняя - это уже текущая
+     * @param null $userId
+     * @return bool
+     */
+    public function getLastLogin($userId = null){
+        $userId = is_null($userId) ? \Yii::app()->user->id : $userId;
+        $session = Session::model()->findAll(array('condition'=>'user_id = :user_id','params'=>array(':user_id'=>$userId),'order'=>'start_date DESC','limit'=>2));
+
+        return count($session)>1 ? $session[1] : false;
+    }
 }

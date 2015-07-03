@@ -5,6 +5,7 @@ class Candy
     const DATETIME = "Y-m-d H:i:s";
     const DATE = 'Y-m-d';
     const NORMAL = 'd.m.Y';
+    const NORMALTIME = 'd.m.Y H:i:s';
 
     const MASK_PHONE = '+0 (000) - 000 - 0000';
     const MASK_TIME = '00:00';

@@ -30,6 +30,7 @@ class UserController extends BaseController
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             if ($model->validate() && $model->login()) {
+                Session::createSession();
                 $this->redirectByRole();
             }
         }
@@ -44,7 +45,13 @@ class UserController extends BaseController
 
     public function actionProfile()
     {
-        $this->render('profile');
+        $this->layout = 'profile';
+        $model = $this->user;
+        if (isset($_POST[CHtml::modelName($model)])) {
+            $model->setAttributes($_POST[CHtml::modelName($model)]);
+            $model->save();
+        }
+        $this->render('profile',array('model'=>$model));
     }
 
     public function actionRegister()
