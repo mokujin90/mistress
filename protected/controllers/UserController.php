@@ -49,6 +49,7 @@ class UserController extends BaseController
         $model = $this->user;
         if (isset($_POST[CHtml::modelName($model)])) {
             $model->setAttributes($_POST[CHtml::modelName($model)]);
+            $model->photo_id = $_REQUEST['photo_id'];
             $model->save();
         }
         $this->render('profile',array('model'=>$model));

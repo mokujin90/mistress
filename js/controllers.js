@@ -5,6 +5,7 @@ $(window).load(function () {
 $(document).ready(function () {
     view.login();
     map.init();
+    form.media();
 });
 
 var siteController = {

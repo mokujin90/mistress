@@ -120,15 +120,24 @@ class Candy
      * @param $params [scale:{ширина}x{высота}]
      * @return string
      */
-    public static function preview($params)
+    public static function preview($params, $miss = false)
     {
-        if (!$params[0]) {
+
+        if ((!$params[0] || is_null($params[0])) && $miss){
+
             $scale = explode('x', $params['scale']);
             $params['style'] = "width:{$scale[0]}px;height:{$scale[1]}px";
-            return CHtml::openTag('img', $params);
+            $res['src'] = '/images/miss/'.strtolower($miss).".png";
         }
-        $res = $params[0]->makePreview($params);
-        if (strcmp($res['src'], '') == 0) return '';
+        elseif($params[0] && !is_null($params[0])){
+
+            $res = $params[0]->makePreview($params);
+
+        }
+        else{
+            return '';
+        }
+
         if (isset($params['src_only'])) return $res['src'];
         $tag_params = array();
         $tag_params['src'] = !empty($params['absoluteUrl']) ? (Yii::app()->request->hostInfo . $res['src'])
@@ -137,14 +146,7 @@ class Candy
             if (preg_match("/^class$|^title$|^style$|^alt$|^on*+/", $k, $matches))
                 $tag_params[$k] = $v;
         }
-        if (preg_match("/png$/", $tag_params['src'], $matches)) {
-            $classArr = array();
-            if (isset($tag_params['class'])) {
-                $classArr = preg_split(' ', (string)$tag_params['class']);
-            }
-            $classArr[] = "png";
-            $tag_params['class'] = join(" ", $classArr);
-        }
+
         return CHtml::tag("img", $tag_params, false, true);
     }
 
@@ -211,8 +213,8 @@ class Candy
      * Вернуть имя для элемента формы, при этом получив нечто вида Destination[name][43] (если есть id)
      * @param $model CActiveRecord
      */
-    public static function modelNames($model,$attribute, $newKey = 'new')
+    public static function modelNames($model, $attribute, $newKey = 'new')
     {
-        return  $model->isNewRecord ?  CHtml::modelName($model)."[{$attribute}][]" : CHtml::modelName($model)."[{$attribute}][{$model->id}]";
+        return $model->isNewRecord ? CHtml::modelName($model) . "[{$attribute}][]" : CHtml::modelName($model) . "[{$attribute}][{$model->id}]";
     }
 }

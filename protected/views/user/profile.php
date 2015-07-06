@@ -28,6 +28,41 @@
                                 'role'=>'form'
                             )
                         )); ?>
+                            <div class="form-group">
+                                <?=$form->label($model,'photo_id',array('class'=>'col-sm-3 control-label'));?>
+                                <div class="col-sm-9">
+                                    <div id="logo_block" class="profile-image">
+                                        <span class="rel">
+                                            <div class="avatar">
+                                                <?=Candy::preview(array($model->photo, 'scale' => User::AVATAR_SIZE),'user')?>
+                                            </div>
+
+                                            <?=CHtml::button('Изменить',array('class'=>'btn open-dialog','id'=>'change-photo'));?>
+
+                                            <?php
+                                                $this->widget('application.components.MediaEditor.MediaEditor',
+                                                    array('data' => array(
+                                                        'items' => null,
+                                                        'field' => 'photo_id',
+                                                        'item_container_id' => 'logo_block',
+                                                        'button_image_url' => '/images/intro.png',
+                                                        'button_width' => 28,
+                                                        'button_height' => 28,
+                                                    ),
+                                                        'scale' => User::AVATAR_SIZE,
+                                                        'scaleMode' => 'in',
+                                                        'needfields' => 'false',
+                                                        'crop'=>false
+                                                    ));
+                                            ?>
+
+                                            <?=CHtml::hiddenField('photo_id',$model->photo_id)?>
+                                        </span>
+
+                                    </div>
+                                    <?=Candy::error($model,'photo_id');?>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <?=$form->label($model,'name',array('class'=>'col-sm-3 control-label'));?>
@@ -62,6 +97,7 @@
                                     <?=CHtml::submitButton('Сохранить',array('class'=>"btn btn-default"));?>
                                 </div>
                             </div>
+
                         <?php $this->endWidget(); ?>
                     </div>
                 </div>

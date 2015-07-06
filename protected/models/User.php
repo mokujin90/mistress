@@ -15,10 +15,12 @@
  * @property integer $phone_approved
  * @property integer $email_approved
  * @property string $level_id
+ * @property string $photo_id
  *
  * The followings are the available model relations:
  * @property Order[] $orders
  * @property Session[] $sessions
+ * @property Media $photo
  * @property Level $level
  */
 class User extends ActiveRecord
@@ -29,6 +31,7 @@ class User extends ActiveRecord
 
     const DEF_LEVEL = 1;
 
+    const AVATAR_SIZE = '64x64';
     /**
      * @return string the associated database table name
      */
@@ -49,7 +52,7 @@ class User extends ActiveRecord
             array('login, email', 'unique'),
             array('is_active, phone_approved, email_approved', 'numerical', 'integerOnly' => true),
             array('login, email, phone', 'length', 'max' => 255),
-            array('level_id', 'length', 'max' => 10),
+            array('level_id, photo_id', 'length', 'max'=>10),
             array('name, last_name', 'safe'),
             array('password_hash, is_active, phone_approved,email_approved,level_id', 'unsafe'),
             // The following rule is used by search().
@@ -72,6 +75,7 @@ class User extends ActiveRecord
             'orders' => array(self::HAS_MANY, 'Order', 'user_work'),
             'sessions' => array(self::HAS_MANY, 'Session', 'user_id'),
             'level' => array(self::BELONGS_TO, 'Level', 'level_id'),
+            'photo' => array(self::BELONGS_TO, 'Media', 'photo_id'),
         );
     }
 
@@ -94,6 +98,7 @@ class User extends ActiveRecord
             'level_id' => 'Level',
             'password_repeat' => Yii::t('main', 'Пароль повторно'),
             'password' => Yii::t('main', 'Пароль'),
+            'photo_id' => 'Фотография',
         );
     }
 

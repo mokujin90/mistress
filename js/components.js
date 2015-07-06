@@ -119,6 +119,11 @@ var form = {
         },
         clearValidate: function () {
             $('.errorMessage').html('').hide();
+        },
+        media:function(){
+            $('.open-dialog').click(function(){
+                $(this).siblings('.photos').find('span').click();
+            });
         }
     }
 var map ={
